@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="360dp"
+        android:layout_height="250dp"
+        app:cardCornerRadius="10dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:id="@+id/card1"
+        android:layout_marginBottom="5dp"
+        >
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/totalTags"
+          android:src="@drawable/delete"
+            android:paddingRight="5dp"
+            android:gravity="end"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="300dp"
+            android:textColor="#08457c"/>
+
+        <TextView
+            android:id="@+id/jsw_id"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:text="JSWID"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/jswid_details"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="
+            \n
+         \n Weight : 10 tons
+         \n
+         \n Loading Yard : HSN1
+         \n
+         \n Unloading Yard : HSN2
+         \n
+         \n Details : Other details about this batch"/>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
