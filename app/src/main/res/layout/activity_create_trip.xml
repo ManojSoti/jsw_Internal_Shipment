@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".CreateTripActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+
+        <ImageView
+            android:id="@+id/toolbar_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/jsw_logo"
+            android:contentDescription="Toolbar Icon"
+            android:layout_marginStart="16dp"
+            android:background="?attr/colorPrimary"
+            android:layout_gravity="start|center_vertical" />
+
+
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="match_parent" />
+
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Trip"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_vertical" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/listcreatetrips"
+            android:layout_width="match_parent"
+            android:layout_height="600dp" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            style="@style/MyButtonStyle"
+            android:id="@+id/scanbacode"
+            android:text="Scan Barcode"
+            android:layout_margin="3dp"
+            android:layout_below="@+id/listcreatetrips"/>
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:id="@+id/createTrip"
+            style="@style/MyButtonStyle"
+            android:text="Create Trip"
+            android:layout_margin="3dp"
+            android:layout_below="@+id/listcreatetrips"
+            android:layout_toRightOf="@+id/scanbacode"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
