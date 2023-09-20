@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:background="@color/white"
+    android:elevation="0dp"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+
+        <ImageView
+            android:id="@+id/toolbar_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/welcomelogo"
+            android:contentDescription="Toolbar Icon"
+            android:layout_marginStart="16dp"
+            android:layout_gravity="start|center_vertical" />
+
+
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="match_parent" />
+
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome User"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_vertical" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <Space
+        android:layout_width="16dp"
+        android:layout_height="80dp" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Batch Details"
+    android:textStyle="bold"
+    android:textSize="20dp"
+    android:layout_gravity="center_horizontal"/>
+
+<Space
+android:layout_width="16dp"
+android:layout_height="80dp" />
+
+<TextView
+    android:id="@+id/batch_details"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center_horizontal"
+
+   android:layout_height="wrap_content"
+   android:textSize="20dp"
+   android:text=" Batch ID : JSWBC123
+        \n
+         \n Weight : 10 tons
+         \n
+         \n Loading Yard : HSN1
+         \n
+         \n Unloading Yard : HSN2
+         \n
+         \n Details : Other details about this batch"/>
+
+<Button
+android:id="@+id/next_button"
+style="@style/MyButtonStyle"
+
+android:layout_width="350dp"
+android:textSize="20sp"
+android:textAllCaps="false"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+android:text="Next "
+android:layout_marginTop="25dp" />
+
+<Button
+android:id="@+id/complete_button"
+style="@style/MyButtonStyle"
+android:layout_width="350dp"
+android:visibility="gone"
+android:textSize="20sp"
+android:textAllCaps="false"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+android:text="Complete Trip "
+android:layout_marginTop="25dp" />
+<Button
+android:id="@+id/forward_button"
+style="@style/MyButtonStyle"
+android:visibility="gone"
+android:layout_width="350dp"
+android:textSize="20sp"
+android:textAllCaps="false"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal"
+android:text="Forward Batch"
+android:layout_marginTop="25dp" />
+
+    </LinearLayout>
