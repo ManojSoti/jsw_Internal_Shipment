@@ -20,7 +20,7 @@
             android:id="@+id/toolbar_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/jsw_logo"
+            android:src="@drawable/welcomelogo"
             android:contentDescription="Toolbar Icon"
             android:layout_marginStart="16dp"
             android:background="?attr/colorPrimary"
