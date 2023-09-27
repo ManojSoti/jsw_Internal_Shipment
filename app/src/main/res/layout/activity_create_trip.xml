@@ -55,23 +55,29 @@
             android:layout_height="600dp" />
 
         <Button
+            android:id="@+id/scanbacode"
+            style="@style/MyButtonStyle"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            style="@style/MyButtonStyle"
-            android:id="@+id/scanbacode"
-            android:text="Scan Barcode"
-            android:layout_margin="3dp"
-            android:layout_below="@+id/listcreatetrips"/>
+            android:layout_below="@+id/listcreatetrips"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
+            android:text="Scan Barcode" />
 
         <Button
-            android:layout_width="200dp"
-            android:layout_height="50dp"
             android:id="@+id/createTrip"
             style="@style/MyButtonStyle"
-            android:text="Create Trip"
-            android:layout_margin="3dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/listcreatetrips"
-            android:layout_toRightOf="@+id/scanbacode"/>
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_toRightOf="@+id/scanbacode"
+            android:text="Create Trip" />
 
     </RelativeLayout>
 
