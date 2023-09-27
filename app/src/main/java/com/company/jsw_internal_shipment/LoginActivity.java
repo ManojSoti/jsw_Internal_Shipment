@@ -43,13 +43,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        username = findViewById(R.id.user_name);
-        password = findViewById(R.id.password);
-        mLogin = findViewById(R.id.login_button);
-        mRequestQueue = Volley.newRequestQueue(this);
-        mProgressDialog = new ProgressDialog(this);
 
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -71,7 +64,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void openLoginPage() {
+        setContentView(R.layout.activity_login);
+        initializeViews();
         mLogin.setOnClickListener(this);
+
+    }
+
+    private void initializeViews() {
+        username = findViewById(R.id.user_name);
+        password = findViewById(R.id.password);
+        mLogin = findViewById(R.id.login_button);
+        mRequestQueue = Volley.newRequestQueue(this);
+        mProgressDialog = new ProgressDialog(this);
 
     }
 
@@ -123,6 +127,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void callLoginApi(String url) {
+        Log.d("url1","http://43.204.98.107/jsw/Api/Supervisor_V1/login");
+        System.out.println(url);
+        Log.d("url",url);
         mProgressDialog.setMessage("Verifying login details...");
         mProgressDialog.show();
         mProgressDialog.setCanceledOnTouchOutside(false);
@@ -132,6 +139,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         try {
             jsonObject.put("username", username.getText().toString().trim());
             jsonObject.put("password", password.getText().toString().trim());
+            System.out.println(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -162,7 +170,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.putExtra("baseUrl",baseurl);
                                 startActivity(intent);
                                 finish();
                             }

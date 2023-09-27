@@ -30,6 +30,7 @@
         android:inputType="text"
         android:layout_gravity="center"
         android:maxLines="1"
+        android:textColor="@color/black"
         android:padding="8dp" />
 
 
@@ -43,6 +44,7 @@
         android:layout_gravity="center"
         android:inputType="textPassword"
         android:maxLines="1"
+        android:textColor="@color/black"
         android:padding="8dp" />
 
     <Button

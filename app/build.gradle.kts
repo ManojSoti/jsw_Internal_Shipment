@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.company.jsw_internal_shipment"
-        minSdk = 24
+        minSdk = 23
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -40,4 +40,5 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.android.volley:volley:1.2.1")
+    implementation ("com.google.code.gson:gson:2.8.9")
 }
