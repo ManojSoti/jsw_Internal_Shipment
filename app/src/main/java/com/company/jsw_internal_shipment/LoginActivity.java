@@ -129,9 +129,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void callLoginApi(String url) {
-        Log.d("url1","http://43.204.98.107/jsw/Api/Supervisor_V1/login");
-        System.out.println(url);
-        Log.d("url",url);
         mProgressDialog.setMessage("Verifying login details...");
         mProgressDialog.show();
         mProgressDialog.setCanceledOnTouchOutside(false);
