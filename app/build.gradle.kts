@@ -41,4 +41,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("com.google.code.gson:gson:2.8.9")
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
 }

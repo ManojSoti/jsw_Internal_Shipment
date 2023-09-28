@@ -62,7 +62,7 @@
 
         <!-- Button to Scan Barcode -->
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/scanBarcode"
 
             style="@style/MyButtonStyle"
             android:layout_width="350dp"
@@ -84,13 +84,14 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/user_name"
+                android:id="@+id/batchId"
                 android:layout_width="366dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:background="@drawable/rectangelbg"
                 android:hint="Enter Batch ID"
+                android:textColor="@color/black"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="8dp" />

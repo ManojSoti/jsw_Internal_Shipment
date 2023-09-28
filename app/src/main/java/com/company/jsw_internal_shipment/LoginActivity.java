@@ -61,6 +61,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(i);
         }
 
+
+
     }
 
     private void openLoginPage() {
