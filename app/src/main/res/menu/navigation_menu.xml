@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/userprofile"
+        android:icon="@drawable/persons"
+        android:title="User Profile" />
+
+    <item
+        android:id="@+id/nav_create"
+        android:icon="@drawable/createtrip"
+        android:title="Create Trip" />
+    <item
+        android:id="@+id/nav_Inprogress"
+        android:icon="@drawable/inprogress"
+        android:title="In Progress Trip" />
+    <item
+        android:id="@+id/nav_complete"
+        android:icon="@drawable/completeetrip"
+        android:title="Complete Trip" />
+    <item
+        android:id="@+id/nav_batchforward"
+        android:icon="@drawable/forwardbatch"
+        android:title="Batch Forward" />
+    <item
+        android:id="@+id/nav_createTipSource"
+        android:icon="@drawable/sourceyard"
+        android:title="Create Trip for Source Yard" />
+    <item
+        android:id="@+id/nav_completeTripDestination"
+        android:icon="@drawable/destinationyard"
+        android:title="Complete Trip For destination Yard" />
+
+</menu>

@@ -1,9 +1,12 @@
 package com.company.jsw_internal_shipment;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,11 +16,15 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -27,27 +34,108 @@ public class MainActivity extends AppCompatActivity
     Button btn_scan;
     ImageView imageView;
     EditText batchId;
+    String username,name,mobile_no,yard_id,yard_name,email;
     SharedPreferences prefs;
-    Toolbar toolbar;
+  MaterialToolbar toolbar;
+    TextView toolbartile;
+    String batchIDFromcreateTrip;
+    private DrawerLayout drawerLayout;
+    UserBeanClass userBeanClass=new UserBeanClass();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        View headerView = navigationView.getHeaderView(0);
+        username=getIntent().getStringExtra("username");
+        name=getIntent().getStringExtra("name");
+        mobile_no=getIntent().getStringExtra("mobile_number");
+        System.out.println("mobile:"+mobile_no);
+        yard_id=getIntent().getStringExtra("yard_id");
+        yard_name=getIntent().getStringExtra("yard_name");
+        email=getIntent().getStringExtra("email_id");
         btn_scan =findViewById(R.id.scanBarcode);
         imageView=findViewById(R.id.play_button);
         batchId=findViewById(R.id.batchId);
         toolbar=findViewById(R.id.toolbar);
-        this.setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(" ");
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().hide();
+        }
+        toolbar.setTitle("");
+        toolbartile=findViewById(R.id.toolbar_title);
+        toolbartile.setText("Welcome "+username);
+      //  this.setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
+        try{
+            batchIDFromcreateTrip=getIntent().getStringExtra("code");
+            System.out.println("code: "+batchIDFromcreateTrip);
+            batchId.setText(batchIDFromcreateTrip);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         btn_scan.setOnClickListener(v->
         {
             scanCode();
         });
 
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(batchId.getText().toString().trim().isEmpty()){
+                    batchId.setError("Batch Id cannot be empty");
+                }else{
+                    Intent i=new Intent(MainActivity.this,BatchDetailsActivity.class);
+                    i.putExtra("batchId",batchId.getText().toString().trim());
+                    i.putExtra("username",username);
+                    i.putExtra("mobile_number",mobile_no);
+                    i.putExtra("name",name);
+                    i.putExtra("yard_id",yard_id);
+                    i.putExtra("email_id",email);
+                    i.putExtra("yard_name",yard_name);
+                    startActivity(i);
+                }
+
+            }
+        });
+        setupToolbarAndNavigationDrawer();
+
 
     }
 
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
+    private void setupToolbarAndNavigationDrawer() {
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+
+        // Set up navigation drawer icon click listener
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        // Set up navigation item click listener
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                handleNavigationItemSelected(item);
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+    }
     private void scanCode()
     {
         ScanOptions options = new ScanOptions();
@@ -116,7 +204,46 @@ public class MainActivity extends AppCompatActivity
         dialog.show();
 
     }
+    private void handleNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.userprofile) {
+            Intent i1 = new Intent(MainActivity.this, UserProfileActivity.class);
+            i1.putExtra("username",username);
+            i1.putExtra("mobile_number",mobile_no);
+            i1.putExtra("name",name);
+            i1.putExtra("yard_id",yard_id);
+            i1.putExtra("email_id",email);
+            i1.putExtra("yard_name",yard_name);
+            startActivity(i1);
+        } else if (id == R.id.createTrip) {
+            Intent i = new Intent(MainActivity.this, MainActivity.class);
+            i.putExtra("username",username);
+            startActivity(i);
+        }
+             else if (id == R.id.nav_Inprogress) {
+                Intent i3 = new Intent(MainActivity.this, InProgressActivity.class);
+                // i3.putExtra("PROFILE_IMAGE_URI", imageUriString);
+                startActivity(i3);
 
+        } else if (id == R.id.nav_complete) {
+            Intent i3 = new Intent(MainActivity.this, CompleteTripActivityEnterId.class);
+            i3.putExtra("username", username);
+            startActivity(i3);
+        }else if(id==R.id.nav_batchforward){
+            Intent i4 = new Intent(MainActivity.this,BatchForwardActivity.class);
+            i4.putExtra("username", username);
+            startActivity(i4);
+        }else if(id==R.id.nav_createTipSource){
+            Intent i4 = new Intent(MainActivity.this, CreateTripActivitySource.class);
+            i4.putExtra("username", username);
+            startActivity(i4);
+
+        } else if (id == R.id.nav_completeTripDestination) {
+            Intent i2 = new Intent(MainActivity.this, CompleteTripDestination.class);
+            i2.putExtra("username", username);
+            startActivity(i2);
+        }
+    }
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);

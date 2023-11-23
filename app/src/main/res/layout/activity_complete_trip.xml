@@ -9,7 +9,7 @@
     android:padding="0dp"
     android:background="@color/white"
     android:elevation="0dp"
-    tools:context=".MainActivity">
+    tools:context=".CompleteTripActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -39,7 +39,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Welcome User"
+            android:text="Complete Trip"
             android:textSize="18sp"
             android:textColor="@android:color/white"
             android:layout_gravity="center_vertical" />
@@ -50,38 +50,38 @@
         android:layout_width="16dp"
         android:layout_height="80dp" />
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Batch Details"
-    android:textStyle="bold"
-    android:textSize="20dp"
-    android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Batch Details"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_gravity="center_horizontal"/>
 
-<Space
-android:layout_width="16dp"
-android:layout_height="80dp" />
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    <Space
+        android:layout_width="16dp"
+        android:layout_height="80dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-<TextView
-    android:id="@+id/batch_details"
-    android:layout_width="wrap_content"
-    android:layout_gravity="center_horizontal"
 
-   android:layout_height="wrap_content"
-   android:textSize="20dp"
-    android:textColor="@color/black"
-   android:hint=" Batch ID : JSWBC123
+
+            <TextView
+                android:id="@+id/batch_details"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:hint=" Batch ID : JSWBC123
         \n
          \n Weight : 10 tons
          \n
@@ -91,40 +91,20 @@ android:layout_height="80dp" />
          \n
          \n Details : Other details about this batch"/>
 
-<Button
-android:id="@+id/next_button"
-style="@style/MyButtonStyle"
 
-android:layout_width="350dp"
-android:textSize="20sp"
-android:textAllCaps="false"
-android:layout_height="wrap_content"
-android:layout_gravity="center_horizontal"
-android:text="Next "
-android:layout_marginTop="25dp" />
 
-<Button
-android:id="@+id/complete_button"
-style="@style/MyButtonStyle"
-android:layout_width="350dp"
-android:visibility="gone"
-android:textSize="20sp"
-android:textAllCaps="false"
-android:layout_height="wrap_content"
-android:layout_gravity="center_horizontal"
-android:text="Complete Trip "
-android:layout_marginTop="25dp" />
-<Button
-android:id="@+id/forward_button"
-style="@style/MyButtonStyle"
-android:visibility="gone"
-android:layout_width="350dp"
-android:textSize="20sp"
-android:textAllCaps="false"
-android:layout_height="wrap_content"
-android:layout_gravity="center_horizontal"
-android:text="Forward Batch"
-android:layout_marginTop="25dp" />
+            <Button
+                android:id="@+id/complete_button"
+                style="@style/MyButtonStyle"
+                android:layout_width="350dp"
+              android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Complete Trip "
+                android:layout_marginTop="25dp" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
-</ScrollView>
-    </LinearLayout>

@@ -28,6 +28,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,7 +46,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     static String mainUrl;
     private ProgressDialog mProgressDialog;
     StringRequest stringRequest;
-
+    String user;
+    String pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,20 +136,45 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+
+
     private void callLoginApi(String url) {
         mProgressDialog.setMessage("Verifying login details...");
         mProgressDialog.show();
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setCancelable(false);
 
+
         JSONObject jsonObject = new JSONObject();
+
         try {
-            jsonObject.put("username", username.getText().toString().trim());
-            jsonObject.put("password", password.getText().toString().trim());
+            user= String.valueOf(EncryptionDecryption.encrypt("SAVITHRU-x!A%D*G",username.getText().toString().trim()));
+             pass= String.valueOf(EncryptionDecryption.encrypt("SAVITHRU-x!A%D*G",password.getText().toString().trim()));
+            System.out.println("Encrypted data user:"+user);
+            System.out.println("Encrypted data pss:"+ pass);
+
+           // String username=EncryptionDecryption.decrypt(user);
+           // String password=EncryptionDecryption.decrypt(pass);
+          //  System.out.println("decrypted data username: "+username);
+          //  System.out.println("decrypted data password:"+ password);
+            jsonObject.put("username", user);
+            jsonObject.put("password",pass);
             System.out.println(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        } /*catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }*/
 
         JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
                 response -> {
@@ -156,19 +189,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             if (profileData != null) {
                                 SharedPreferences.Editor editor = mSharedPreferences.edit();
+
+                                String username=String.valueOf(EncryptionDecryption.decrypt("SAVITHRU-x!A%D*G",profileData.getString("username")));
+                                System.out.println("usrname:"+username);
+                                String mobile_no=String.valueOf(EncryptionDecryption.decrypt("SAVITHRU-x!A%D*G",profileData.getString("mobile_no")));
+                               String name=String.valueOf(EncryptionDecryption.decrypt("SAVITHRU-x!A%D*G",profileData.getString("name")));
+                              String email=String.valueOf(EncryptionDecryption.decrypt("SAVITHRU-x!A%D*G",profileData.getString("email_id")));
+                               String yard_id=String.valueOf(EncryptionDecryption.decrypt("SAVITHRU-x!A%D*G",profileData.getString("yard_id")));
+                               String yard_name=String.valueOf(EncryptionDecryption.decrypt("SAVITHRU-x!A%D*G",profileData.getString("yard_name")));
                                 editor.putBoolean("LoginAppUser", true)
-                                        .putString("username", profileData.getString("username"))
-                                        .putString("mobile_no", profileData.getString("mobile_no"))
-                                        .putString("name",profileData.getString("name"))
-                                        .putString("yard_id", profileData.getString("yard_id"))
-                                        .putString("yard_name", profileData.getString("yard_name"))
-                                        .putString("user_name", username.getText().toString())
-                                        .putString("password", password.getText().toString())
+                                        .putString("username",username )
+                                        .putString("mobile_no",mobile_no )
+                                        .putString("name",name)
+                                        .putString("email_id",email)
+                                        .putString("yard_id",yard_id )
+                                        .putString("yard_name", yard_name)
+                                        .putString("user_name", user)
+                                        .putString("password", pass)
                                         .commit();
 
                                 Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                               intent.putExtra("username",username);
+                               intent.putExtra("mobile_number",mobile_no);
+                               intent.putExtra("name",name);
+                               intent.putExtra("email_id",email);
+                               intent.putExtra("yard_id",yard_id);
+                               intent.putExtra("yard_name",yard_name);
+                               System.out.println("mobile:"+mobile_no);
                                 startActivity(intent);
                                 finish();
                             }

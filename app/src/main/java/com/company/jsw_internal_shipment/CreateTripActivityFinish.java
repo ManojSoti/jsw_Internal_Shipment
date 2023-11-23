@@ -1,11 +1,12 @@
 package com.company.jsw_internal_shipment;
 
 import static com.company.jsw_internal_shipment.BatchDetailsActivity.batchDetailsBeanList;
-
+import static com.company.jsw_internal_shipment.CreateTripSourceBatchDetails.batchDetailsBeanLists;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -49,37 +50,32 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class CreateTripActivity extends AppCompatActivity {
-
+public class CreateTripActivityFinish extends AppCompatActivity {
     ListView listViewDetails;
     BatchDetailsAdapter adapter;
     Button scanbarcode,createTrip;
-    String username,name,mobile_no,yardid,yard_name,email,batchId;
+    String username;
     String SelectedUnitNAme;
     private RequestQueue mRequestQueue;
     private SharedPreferences mSharedPreferences;
     private ProgressDialog mProgressDialog;
     List<UnitNameBean> unitname=new LinkedList<>();
     UnitNameBean unitNameBean;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRequestQueue = Volley.newRequestQueue(this);
         mProgressDialog = new ProgressDialog(this);
-        setContentView(R.layout.activity_create_trip);
-       // List<BatchDetailsBean> batchDetailsLists = (List<BatchDetailsBean>) getIntent().getSerializableExtra("batchDetailsList");
+        setContentView(R.layout.activity_create_trip_finish);
         username=getIntent().getStringExtra("username");
-        name=getIntent().getStringExtra("name");
-        mobile_no=getIntent().getStringExtra("mobile_number");
-        System.out.println("mobile:"+mobile_no);
-        yardid=getIntent().getStringExtra("yard_id");
-        yard_name=getIntent().getStringExtra("yard_name");
-        email=getIntent().getStringExtra("email_id");
+        //List<BatchDetailsBean> batchDetailsLists = (List<BatchDetailsBean>) getIntent().getSerializableExtra("batchDetailsList");
+
         listViewDetails=findViewById(R.id.listcreatetrips);
         scanbarcode=findViewById(R.id.scanbacode);
         createTrip=findViewById(R.id.createTrip);
-        System.out.println("batch details: "+batchDetailsBeanList);
-        adapter=new BatchDetailsAdapter(this,batchDetailsBeanList);
+        System.out.println("batch details: "+batchDetailsBeanLists);
+        adapter=new BatchDetailsAdapter(this,batchDetailsBeanLists);
         listViewDetails.setAdapter(adapter);
 
         scanbarcode.setOnClickListener(new View.OnClickListener() {
@@ -95,20 +91,19 @@ public class CreateTripActivity extends AppCompatActivity {
                 getUnitNumber(ApiLinks.getUnitNameUrl);
             }
         });
-
         listViewDetails.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int which_item = position;
 
-                new AlertDialog.Builder(CreateTripActivity.this)
-                        .setMessage("Are You sure you want to delete this Batch Id  "+batchDetailsBeanList.get(position).getBatchId()+" ?")
+                new AlertDialog.Builder(CreateTripActivityFinish.this)
+                        .setMessage("Are You sure you want to delete this Batch Id  "+batchDetailsBeanLists.get(position).getBatchId()+" ?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Remove the item from the list
 
-                                batchDetailsBeanList.remove(which_item);
+                                batchDetailsBeanLists.remove(which_item);
                                 adapter.notifyDataSetChanged();
                                 // Check if the list is empty
                             /*    if (batchDetailsBeanLists.size()==1) {
@@ -126,6 +121,8 @@ public class CreateTripActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
     @Override
     protected void onPause() {
@@ -135,24 +132,20 @@ public class CreateTripActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onStop() {
         super.onStop();
-//        List<BatchDetailsBean> permanentlyRemovedItems =  adapter.getPermanentlyRemovedItems();
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, CreateTripActivitySource.class);
         intent.putExtra("username",username);
-        intent.putExtra("mobile_number",mobile_no);
-        intent.putExtra("name",name);
-        intent.putExtra("yard_id",yardid);
-        intent.putExtra("email_id",email);
-        intent.putExtra("yard_name",yard_name);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish(); // This finishes the current activity (ActivityC)
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -174,7 +167,7 @@ public class CreateTripActivity extends AppCompatActivity {
     {
         if(result.getContents() !=null)
         {
-            Intent i=new Intent(CreateTripActivity.this,MainActivity.class);
+            Intent i=new Intent(CreateTripActivityFinish.this,CreateTripActivitySource.class);
             i.putExtra("username",username);
             i.putExtra("code",result.getContents());
             startActivity(i);
@@ -199,9 +192,9 @@ public class CreateTripActivity extends AppCompatActivity {
                             for (int i=0;i<arraylist.length();i++){
                                 JSONObject locationobject=arraylist.getJSONObject(i);
                                 String unitNames=String.valueOf(EncryptionDecryption.decrypt("SAVITHRU-x!A%D*G",locationobject.getString("unitname")));
-                               // String location=locationobject.getString("location");
+                                // String location=locationobject.getString("location");
 
-                               unitNameBean =new UnitNameBean();
+                                unitNameBean =new UnitNameBean();
                                 //locationBean.setId(id);
                                 unitNameBean.setUnitNAme(unitNames);
 
@@ -251,10 +244,10 @@ public class CreateTripActivity extends AppCompatActivity {
     }
     private void showUnitNameTypeSpinner() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowmanager = (WindowManager) CreateTripActivity.this.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowmanager = (WindowManager) CreateTripActivityFinish.this.getSystemService(Context.WINDOW_SERVICE);
         windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
 
-        final Dialog dialog = new Dialog(CreateTripActivity.this);
+        final Dialog dialog = new Dialog(CreateTripActivityFinish.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_box_spinner);
         dialog.getWindow().setLayout(((displayMetrics.widthPixels / 100) * 90), LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -264,22 +257,22 @@ public class CreateTripActivity extends AppCompatActivity {
         TextView mealService = dialog.findViewById(R.id.mealSerViceDia);
 
         mealService.setText("Unit Names");
-        UnitNameSpinnerAdapter tagReasonAdapter = new UnitNameSpinnerAdapter(CreateTripActivity.this, unitname);
+        UnitNameSpinnerAdapter tagReasonAdapter = new UnitNameSpinnerAdapter(CreateTripActivityFinish.this, unitname);
         listView.setAdapter(tagReasonAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // SelectedPositionIndexloc=position;
+                // SelectedPositionIndexloc=position;
                 SelectedUnitNAme=unitname.get(position).getUnitNAme();
 
                 final int which_item=position;
-                new AlertDialog.Builder(CreateTripActivity.this)
+                new AlertDialog.Builder(CreateTripActivityFinish.this)
 
-                        .setMessage("Are You Sure you want to create the Trip?")
+                        .setMessage("Your Trip has Multiple unloading yards,\n do you want to continue?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                createTrip(ApiLinks.createTripUrl,batchDetailsBeanList,"remarks","1",SelectedUnitNAme,username);
+                                createTrip(ApiLinks.createTripUrl,batchDetailsBeanLists,"remarks","0",SelectedUnitNAme,username);
 
                             }
                         })
@@ -294,7 +287,6 @@ public class CreateTripActivity extends AppCompatActivity {
 
 
     }
-
     public void createTrip(String url,List<BatchDetailsBean> batchdetails,String remarks,String load_unload,String vehicle,String supervisor){
         mProgressDialog.setMessage("Creating Trip...");
         mProgressDialog.show();
@@ -331,7 +323,7 @@ public class CreateTripActivity extends AppCompatActivity {
 
                 if (response.getString("status").equals("success")) {
                     System.out.println("sucesss");
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateTripActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateTripActivityFinish.this);
 
 
                     builder.setMessage(response.getString("message"));
@@ -347,7 +339,7 @@ public class CreateTripActivity extends AppCompatActivity {
                     dialogs.show();
 
                 }else{
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateTripActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateTripActivityFinish.this);
 
 
                     builder.setMessage(response.getString("message"));
@@ -392,6 +384,4 @@ public class CreateTripActivity extends AppCompatActivity {
 
         mRequestQueue.add(createTriprequest);
     }
-
 }
-
